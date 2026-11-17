@@ -1,0 +1,455 @@
+<!doctype html>
+<!--
+THESIS: CumUnity is a professional collaboration network for adult creators, not a dating clone.
+OWN-WORLD: Navy workroom UI, acid-lime callouts, cobalt actions, coral accents, ruled paper surfaces.
+STORY: Move left to right from the creator problem to a safer, clearer collaboration workflow.
+FIRST VIEWPORT: A wide editorial strip with a bold promise, one creator image, and a visible product path.
+FORM: Horizontal brochure, built for portfolio viewing and responsive fallback scrolling.
+-->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>CumUnity — Soft teaser</title>
+    <meta name="description" content="A soft teaser and work-in-progress case study for CumUnity, a future creator collaboration app." />
+    <style>
+      :root {
+        --ink: #17253d;
+        --soft: #536178;
+        --paper: #f7f8f4;
+        --ground: #dfe6e9;
+        --rule: #bac6c8;
+        --blue: #204ee8;
+        --acid: #ddff52;
+        --coral: #ff765f;
+        --green: #2e7658;
+        --shadow: 0 22px 60px rgb(23 37 61 / 18%);
+        font-family: "Avenir Next", Avenir, system-ui, sans-serif;
+        color: var(--ink);
+        background: var(--ground);
+        font-synthesis: none;
+        text-rendering: optimizeLegibility;
+      }
+
+      * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+      body {
+        min-width: 320px;
+        margin: 0;
+        background:
+          linear-gradient(90deg, transparent 0 29px, rgb(23 37 61 / 4%) 30px, transparent 31px),
+          var(--ground);
+      }
+      a { color: inherit; }
+      .brochure-shell { min-height: 100vh; padding: 28px; }
+      .brochure-top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: min(1510px, 100%);
+        margin: 0 auto 18px;
+        color: var(--ink);
+      }
+      .brand { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; }
+      .brand-mark {
+        display: grid;
+        width: 35px;
+        height: 35px;
+        place-items: center;
+        border: 1.5px solid var(--ink);
+        font-size: 19px;
+        font-weight: 800;
+        transform: rotate(-4deg);
+      }
+      .brand-word { font-size: 20px; font-weight: 800; letter-spacing: -.8px; }
+      .brand-period { color: var(--blue); }
+      .brochure-top small { color: var(--soft); font-size: 11px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+      .brochure-rail {
+        display: flex;
+        gap: 18px;
+        width: min(1510px, 100%);
+        margin: 0 auto;
+        overflow-x: auto;
+        padding: 0 0 20px;
+        scroll-snap-type: x mandatory;
+        scrollbar-color: var(--blue) transparent;
+      }
+      .panel {
+        position: relative;
+        flex: 0 0 min(78vw, 920px);
+        min-height: min(68vh, 650px);
+        overflow: hidden;
+        padding: clamp(28px, 4vw, 58px);
+        border: 1px solid rgb(23 37 61 / 18%);
+        background: var(--paper);
+        box-shadow: var(--shadow);
+        scroll-snap-align: start;
+      }
+      .panel-dark { background: var(--ink); color: var(--paper); }
+      .panel-blue { background: var(--blue); color: white; }
+      .panel-coral { background: var(--coral); }
+      .panel-lime { background: var(--acid); }
+      .panel-label {
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        margin-bottom: 30px;
+        color: var(--soft);
+        font-size: 11px;
+        font-weight: 800;
+        letter-spacing: .13em;
+        text-transform: uppercase;
+      }
+      .panel-dark .panel-label, .panel-blue .panel-label { color: #d3dded; }
+      .panel-label::before { width: 8px; height: 8px; border-radius: 50%; background: var(--blue); content: ""; }
+      .panel-dark .panel-label::before { background: var(--acid); }
+      h1, h2, h3, p { margin-top: 0; }
+      h1 {
+        max-width: 10ch;
+        margin-bottom: 24px;
+        font-size: clamp(46px, 7vw, 94px);
+        letter-spacing: -0.07em;
+        line-height: .92;
+      }
+      h2 {
+        max-width: 12ch;
+        margin-bottom: 18px;
+        font-size: clamp(34px, 4.5vw, 64px);
+        letter-spacing: -0.06em;
+        line-height: .96;
+      }
+      h3 { margin-bottom: 8px; font-size: 15px; }
+      .lede { max-width: 40ch; color: var(--soft); font-size: clamp(15px, 1.5vw, 20px); line-height: 1.5; }
+      .panel-dark .lede, .panel-blue .lede { color: #d3dded; }
+      .stamp {
+        display: grid;
+        width: 76px;
+        height: 76px;
+        place-items: center;
+        margin-bottom: 34px;
+        border: 2px solid currentColor;
+        font-size: 30px;
+        font-weight: 800;
+        transform: rotate(-5deg);
+      }
+      .stamp span { color: var(--blue); font-size: 15px; }
+      .panel-dark .stamp span { color: var(--acid); }
+      .hero-lockup { display: grid; grid-template-columns: minmax(0, 1fr) 260px; gap: 28px; align-items: end; height: 100%; }
+      .hero-card {
+        align-self: end;
+        overflow: hidden;
+        border: 1px solid rgb(23 37 61 / 20%);
+        background: #d4d9d4;
+        transform: rotate(3deg);
+      }
+      .hero-card img { display: block; width: 100%; height: 310px; object-fit: cover; object-position: center 26%; filter: saturate(.9) contrast(1.02); }
+      .hero-card figcaption { padding: 11px 13px; background: var(--ink); color: white; font-size: 10px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+      .scribble {
+        position: absolute;
+        right: 7%;
+        bottom: 8%;
+        display: grid;
+        width: 140px;
+        height: 58px;
+        place-items: center;
+        border: 1px dashed currentColor;
+        font-size: 11px;
+        font-weight: 800;
+        letter-spacing: .1em;
+        transform: rotate(-7deg);
+      }
+      .process {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 18px;
+        margin-top: 44px;
+      }
+      .process-step { padding-top: 15px; border-top: 2px solid currentColor; }
+      .step-no { display: block; margin-bottom: 22px; color: var(--blue); font-size: 11px; font-weight: 800; letter-spacing: .12em; }
+      .panel-dark .step-no, .panel-blue .step-no { color: var(--acid); }
+      .process-step p, .feature p, .trust-list li { margin-bottom: 0; color: var(--soft); font-size: 13px; line-height: 1.5; }
+      .panel-dark .process-step p, .panel-blue .process-step p, .panel-dark .trust-list li { color: #d3dded; }
+      .feature-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px 42px; margin-top: 38px; }
+      .feature { padding-top: 14px; border-top: 1px solid currentColor; }
+      .feature strong { display: block; margin-bottom: 8px; font-size: 19px; }
+      .feature-mark { display: inline-grid; width: 31px; height: 31px; margin-bottom: 15px; place-items: center; background: var(--acid); color: var(--ink); font-size: 14px; font-weight: 800; }
+      .trust-layout { display: grid; grid-template-columns: minmax(0, 1fr) 230px; gap: 44px; align-items: start; }
+      .trust-list { display: grid; gap: 16px; margin: 28px 0 0; padding: 0 0 0 20px; }
+      .trust-list li::marker { color: var(--acid); }
+      .signal-board { padding: 18px; border: 1px solid rgb(255 255 255 / 28%); background: rgb(255 255 255 / 7%); }
+      .signal-board strong { display: block; margin-bottom: 18px; font-size: 37px; letter-spacing: -.06em; }
+      .signal-board small { color: #d3dded; font-size: 11px; line-height: 1.45; }
+      .boundary-line { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 20px; }
+      .boundary-line span { padding: 7px 8px; border: 1px solid var(--ink); font-size: 10px; font-weight: 800; letter-spacing: .05em; text-transform: uppercase; }
+      .terms-board { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; margin-top: 42px; }
+      .term { min-height: 142px; padding: 15px; border: 1px solid var(--ink); background: rgb(255 255 255 / 22%); }
+      .term span { display: block; margin-bottom: 26px; font-size: 10px; font-weight: 800; letter-spacing: .1em; }
+      .term strong { display: block; font-size: 22px; letter-spacing: -.05em; line-height: 1; }
+      .platform-strip { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 44px; }
+      .platform-strip span { padding: 11px 12px; border: 1px solid rgb(255 255 255 / 55%); font-size: 11px; font-weight: 800; }
+      .roadmap { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin-top: 46px; }
+      .roadmap-stage { min-height: 190px; padding: 16px; border: 1px solid var(--ink); background: rgb(255 255 255 / 26%); }
+      .roadmap-stage span { display: block; margin-bottom: 34px; font-size: 11px; font-weight: 800; letter-spacing: .1em; }
+      .roadmap-stage strong { display: block; margin-bottom: 9px; font-size: 20px; letter-spacing: -.05em; }
+      .roadmap-stage p { margin: 0; color: #2e3b2b; font-size: 12px; line-height: 1.45; }
+      .end-note { position: absolute; right: 8%; bottom: 9%; max-width: 23ch; padding: 14px; border: 1px solid var(--ink); background: var(--paper); font-size: 13px; font-weight: 700; line-height: 1.35; transform: rotate(2deg); }
+      .brochure-footer { display: flex; justify-content: space-between; gap: 18px; width: min(1510px, 100%); margin: 18px auto 0; color: var(--soft); font-size: 11px; }
+      .brochure-footer a { color: var(--blue); font-weight: 800; text-underline-offset: 3px; }
+      @media (max-width: 760px) {
+        .brochure-shell { padding: 16px; }
+        .brochure-top small { display: none; }
+        .brochure-rail { gap: 12px; }
+        .panel { flex-basis: 92vw; min-height: 630px; padding: 28px; }
+        .hero-lockup, .trust-layout { grid-template-columns: 1fr; }
+        .hero-card { width: 190px; margin-left: auto; }
+        .hero-card img { height: 220px; }
+        .process, .feature-grid, .terms-board, .roadmap { grid-template-columns: 1fr; }
+        .scribble, .end-note { position: static; margin-top: 28px; }
+        .brochure-footer { flex-direction: column; }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        html { scroll-behavior: auto; }
+      }
+      .demo-page { width: min(1180px, 100%); margin: 0 auto; padding: 18px 28px 80px; }
+      .demo-top { position: sticky; z-index: 4; top: 0; display: flex; align-items: center; justify-content: space-between; gap: 20px; min-height: 62px; background: rgb(223 230 233 / 88%); backdrop-filter: blur(12px); }
+      .demo-top > span { color: var(--soft); font-size: 11px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+      .demo-top > a:last-child { color: var(--blue); font-size: 12px; font-weight: 800; text-underline-offset: 4px; }
+      .demo-hero { display: grid; grid-template-columns: minmax(0, .9fr) minmax(360px, 1.1fr); gap: clamp(32px, 7vw, 100px); align-items: center; min-height: calc(100vh - 80px); padding: 70px 0 90px; }
+      .demo-hero h1 { max-width: 8ch; margin-bottom: 26px; font-size: clamp(58px, 8vw, 112px); }
+      .demo-hero-copy .lede { max-width: 37ch; }
+      .demo-scroll-cue { display: flex; align-items: center; gap: 12px; margin-top: 52px; color: var(--soft); font-size: 11px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
+      .demo-scroll-cue span { display: inline-block; width: 42px; height: 1px; background: var(--blue); }
+      .demo-stage { position: relative; min-height: 540px; transform: translateY(var(--scroll-shift, 0px)); transition: transform .18s ease-out; }
+      .stage-hero { display: grid; place-items: center; }
+      .phone-frame { position: relative; width: min(300px, 70%); overflow: hidden; border: 10px solid var(--ink); border-radius: 30px; background: var(--paper); box-shadow: 22px 24px 0 var(--acid), var(--shadow); transform: rotate(4deg); }
+      .phone-top, .phone-title { display: flex; justify-content: space-between; align-items: center; padding: 10px 14px; font-size: 9px; font-weight: 800; }
+      .phone-title { padding-top: 16px; font-size: 17px; }
+      .phone-title span { color: var(--blue); font-size: 22px; }
+      .mini-profile { position: relative; margin: 0 10px; overflow: hidden; background: #d3d8d2; }
+      .mini-profile img { display: block; width: 100%; height: 275px; object-fit: cover; object-position: center 26%; }
+      .mini-profile-overlay { position: absolute; right: 0; bottom: 0; left: 0; display: grid; gap: 3px; padding: 38px 13px 13px; background: linear-gradient(transparent, rgb(23 37 61 / 90%)); color: white; }
+      .mini-profile-overlay span { color: var(--acid); font-size: 8px; font-weight: 800; letter-spacing: .1em; }
+      .mini-profile-overlay strong { font-size: 16px; }
+      .mini-profile-overlay small { color: #d3dded; font-size: 10px; }
+      .mini-fit { display: grid; grid-template-columns: 58px 1fr; gap: 1px 9px; align-items: center; margin: 12px; padding: 10px; border: 1px solid #c5ced0; background: #eef1ed; }
+      .mini-fit strong { grid-row: span 2; color: var(--blue); font-size: 25px; letter-spacing: -.08em; }
+      .mini-fit span { font-size: 8px; font-weight: 800; letter-spacing: .1em; }
+      .mini-fit small { color: var(--soft); font-size: 9px; }
+      .mini-actions { display: flex; justify-content: space-between; padding: 4px 22px 18px; font-size: 24px; }
+      .mini-actions strong { color: var(--blue); }
+      .float-note { position: absolute; padding: 10px 12px; border: 1px solid var(--ink); background: var(--acid); color: var(--ink); font-size: 10px; font-weight: 800; box-shadow: 5px 5px 0 var(--ink); }
+      .note-one { top: 21%; right: 2%; transform: rotate(7deg) translateY(var(--scroll-shift, 0px)); }
+      .note-two { bottom: 19%; left: 4%; transform: rotate(-6deg) translateY(calc(var(--scroll-shift, 0px) * -1)); }
+      .demo-section { display: grid; grid-template-columns: minmax(0, .85fr) minmax(340px, 1.15fr); gap: clamp(30px, 7vw, 100px); align-items: center; min-height: 100vh; padding: 110px 0; }
+      .section-reverse { grid-template-columns: minmax(340px, 1.15fr) minmax(0, .85fr); }
+      .section-reverse .demo-section-copy { order: 2; }
+      .section-reverse .demo-stage { order: 1; }
+      .demo-section-copy h2, .demo-finale h2 { max-width: 10ch; font-size: clamp(42px, 5.5vw, 77px); }
+      .demo-section-copy > p { max-width: 38ch; color: var(--soft); font-size: 17px; line-height: 1.6; }
+      .demo-index { display: block; margin-bottom: 24px; color: var(--blue); font-size: 11px; font-weight: 800; letter-spacing: .13em; }
+      .demo-pills, .trust-checks, .terms-mini { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 28px; }
+      .demo-pills span, .trust-checks span, .terms-mini span { padding: 8px 9px; border: 1px solid var(--rule); background: var(--paper); color: var(--soft); font-size: 10px; font-weight: 800; }
+      .stage-discover { display: grid; place-items: center; }
+      .discover-card { position: relative; z-index: 2; width: min(330px, 72%); padding: 15px; border: 1px solid #c5ced0; background: var(--paper); box-shadow: 16px 18px 0 var(--coral), var(--shadow); transform: rotate(-3deg) translateY(var(--scroll-shift, 0px)); }
+      .discover-card-top { display: flex; justify-content: space-between; margin-bottom: 22px; color: var(--green); font-size: 9px; font-weight: 800; letter-spacing: .08em; }
+      .discover-card-top b { color: var(--soft); }
+      .discover-avatar { display: grid; width: 100%; height: 190px; min-height: 190px; place-items: center; margin-bottom: 14px; overflow: hidden; background: linear-gradient(135deg, #9d87f7, #f7d8c6); color: white; font-size: 44px; font-weight: 800; }
+      .discover-avatar img { display: block; width: 100%; height: 190px; min-height: 190px; max-height: 190px; object-fit: cover; object-position: center 24%; }
+      .discover-card strong, .discover-card small { display: block; }
+      .discover-card strong { margin-bottom: 4px; font-size: 20px; }
+      .discover-card small { color: var(--soft); font-size: 11px; }
+      .discover-line { height: 1px; margin: 16px 0 11px; background: repeating-linear-gradient(90deg, var(--rule) 0 4px, transparent 4px 8px); }
+      .discover-meta { display: flex; justify-content: space-between; color: var(--soft); font-size: 10px; font-weight: 800; letter-spacing: .06em; }
+      .orbit-card { position: absolute; padding: 12px; border: 1px solid var(--ink); background: var(--acid); font-size: 13px; font-weight: 800; box-shadow: 6px 6px 0 var(--ink); }
+      .orbit-card small { display: block; margin-top: 7px; color: var(--soft); font-size: 8px; letter-spacing: .1em; }
+      .orbit-back { top: 16%; right: 5%; transform: rotate(7deg) translateY(calc(var(--scroll-shift, 0px) * -1)); }
+      .orbit-front { bottom: 14%; left: 5%; background: var(--blue); color: white; transform: rotate(-6deg) translateY(var(--scroll-shift, 0px)); }
+      .orbit-front small { color: #d3dded; }
+      .stage-fit { display: grid; grid-template-columns: 1fr 170px; gap: 24px; align-items: center; padding: 0 9%; }
+      .signal-stack { display: grid; gap: 10px; }
+      .signal-stack span { padding: 14px; border: 1px solid var(--rule); background: var(--paper); color: var(--soft); font-size: 12px; font-weight: 700; box-shadow: 5px 5px 0 var(--acid); transform: translateX(var(--scroll-shift, 0px)); }
+      .signal-stack span:nth-child(2) { transform: translateX(calc(var(--scroll-shift, 0px) * -1)); }
+      .signal-stack span:nth-child(3) { transform: translateX(calc(var(--scroll-shift, 0px) * .6)); }
+      .signal-ring { display: grid; width: 165px; height: 165px; place-content: center; justify-items: center; border: 16px solid var(--acid); border-right-color: var(--blue); border-radius: 50%; background: var(--ink); color: white; box-shadow: 10px 10px 0 var(--coral); transform: rotate(-12deg) translateY(var(--scroll-shift, 0px)); }
+      .signal-ring strong { font-size: 49px; letter-spacing: -.1em; }
+      .signal-ring small { color: var(--acid); font-size: 10px; font-weight: 800; letter-spacing: .12em; }
+      .fit-explain { display: grid; grid-template-columns: auto 1fr; gap: 2px 12px; max-width: 310px; margin-top: 30px; padding: 15px; border: 1px solid var(--rule); background: var(--paper); }
+      .fit-explain strong { grid-row: span 2; color: var(--blue); font-size: 37px; letter-spacing: -.08em; }
+      .fit-explain span { align-self: end; font-size: 11px; font-weight: 800; }
+      .fit-explain small { color: var(--soft); font-size: 10px; line-height: 1.4; }
+      .stage-trust { display: grid; place-items: center; }
+      .trust-ticket { width: min(360px, 80%); padding: 24px; border: 1px solid #8090a7; background: var(--ink); color: white; box-shadow: 15px 15px 0 var(--acid); transform: rotate(3deg) translateY(var(--scroll-shift, 0px)); }
+      .trust-ticket > span { color: var(--acid); font-size: 10px; font-weight: 800; letter-spacing: .12em; }
+      .trust-ticket strong { display: block; margin: 24px 0 8px; font-size: 26px; letter-spacing: -.05em; }
+      .trust-ticket p { color: #d3dded; font-size: 12px; }
+      .trust-ticket div { display: flex; align-items: center; gap: 10px; margin-top: 14px; padding: 10px; border: 1px solid #5b6b85; font-size: 12px; }
+      .trust-ticket b { display: grid; width: 25px; height: 25px; place-items: center; background: var(--coral); color: var(--ink); }
+      .trust-ticket div:last-child b { background: white; }
+      .trust-badge { position: absolute; right: 9%; top: 17%; padding: 9px 10px; border: 1px dashed var(--ink); background: var(--acid); font-size: 9px; font-weight: 800; transform: rotate(8deg); }
+      .stage-terms { display: grid; place-items: center; }
+      .brief-sheet { width: min(430px, 82%); padding: 24px; border: 1px solid var(--ink); background: var(--paper); box-shadow: 14px 14px 0 var(--ink); transform: rotate(-4deg) translateY(var(--scroll-shift, 0px)); }
+      .brief-sheet > span { color: var(--blue); font-size: 10px; font-weight: 800; letter-spacing: .12em; }
+      .brief-sheet h3 { margin: 28px 0 8px; font-size: 28px; letter-spacing: -.06em; }
+      .brief-sheet > p { color: var(--soft); font-size: 12px; line-height: 1.5; }
+      .brief-row { display: flex; justify-content: space-between; gap: 15px; padding: 13px 0; border-top: 1px solid var(--rule); font-size: 11px; }
+      .brief-row b { color: var(--soft); font-size: 9px; letter-spacing: .1em; }
+      .brief-row span { text-align: right; }
+      .demo-finale { min-height: 88vh; padding: 125px clamp(28px, 8vw, 120px); background: var(--ink); color: white; box-shadow: var(--shadow); }
+      .demo-finale .panel-label { color: #d3dded; }
+      .demo-finale .panel-label::before { background: var(--acid); }
+      .demo-finale h2 { max-width: 11ch; }
+      .demo-finale .lede { color: #d3dded; }
+      .roadmap-line { display: flex; align-items: center; gap: 13px; margin: 55px 0 48px; color: var(--acid); font-size: 10px; font-weight: 800; letter-spacing: .1em; }
+      .roadmap-line i { flex: 1; height: 1px; background: #5b6b85; }
+      .demo-cta { display: inline-flex; gap: 18px; align-items: center; min-height: 52px; padding: 0 18px; background: var(--acid); color: var(--ink); font-size: 13px; font-weight: 800; text-decoration: none; }
+      .demo-footer { display: flex; align-items: center; justify-content: space-between; gap: 20px; width: min(1180px, 100%); margin: 0 auto; padding: 28px 0 42px; border-top: 1px solid rgb(23 37 61 / 18%); color: var(--soft); font-size: 11px; }
+      .demo-footer-brand { display: inline-flex; align-items: center; gap: 10px; color: var(--ink); font-weight: 800; letter-spacing: .04em; text-transform: uppercase; }
+      .demo-footer-brand img { width: 30px; height: 30px; object-fit: contain; mix-blend-mode: multiply; }
+      .demo-footer-credit { color: var(--soft); font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
+      .demo-footer-cta { display: inline-flex; align-items: center; gap: 10px; padding: 11px 14px; background: var(--blue); color: white; font-size: 11px; font-weight: 800; text-decoration: none; }
+      .demo-reveal { opacity: 0; transform: translateY(28px); transition: opacity .7s ease, transform .7s cubic-bezier(.2,.8,.2,1); }
+      .demo-reveal.is-visible { opacity: 1; transform: translateY(0); }
+      @media (max-width: 760px) {
+        .demo-page { padding: 10px 16px 52px; }
+        .demo-footer { align-items: flex-start; flex-direction: column; padding: 24px 16px 34px; }
+        .demo-top > span { display: none; }
+        .demo-hero, .demo-section, .section-reverse { grid-template-columns: 1fr; min-height: auto; padding: 90px 0; }
+        .demo-hero h1 { font-size: 62px; }
+        .demo-stage { min-height: 430px; }
+        .section-reverse .demo-section-copy, .section-reverse .demo-stage { order: initial; }
+        .stage-fit { grid-template-columns: 1fr; padding: 0 4%; }
+        .signal-ring { margin: 0 auto; }
+        .demo-finale { min-height: auto; padding: 80px 28px; }
+        .roadmap-line { display: grid; grid-template-columns: auto 1fr; }
+        .roadmap-line i { width: 100%; }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .demo-reveal { opacity: 1; transform: none; transition: none; }
+        .demo-stage, .phone-frame, .discover-card, .signal-ring, .trust-ticket, .brief-sheet, .float-note, .orbit-card, .signal-stack span { transform: none; transition: none; }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="demo-page">
+      <header class="demo-top">
+        <a class="brand" href="/"><span class="brand-mark">C</span><span class="brand-word">CumUnity<span class="brand-period">.</span></span></a>
+        <span>Work in progress · Soft teaser</span>
+        <a href="/">Back to portfolio <span aria-hidden="true">↗</span></a>
+      </header>
+
+      <section class="demo-hero demo-reveal">
+        <div class="demo-hero-copy">
+          <div class="panel-label">An early product direction</div>
+          <h1>Make better things together.</h1>
+          <p class="lede">A soft teaser for a future content-collaboration app—exploring how creators might discover the right people, share useful context, and build projects with more intention.</p>
+          <div class="demo-scroll-cue"><span></span> Scroll to explore the workflow</div>
+        </div>
+        <div class="demo-stage stage-hero" aria-label="Animated CumUnity product preview">
+          <div class="phone-frame">
+            <div class="phone-top"><span>9:41</span><i></i><span>●●●</span></div>
+            <div class="phone-title"><strong>CumUnity.</strong><span>⌕</span></div>
+            <div class="mini-profile">
+              <img src="assets/cumunity/maya-portrait.jpg" alt="Non-explicit stock portrait representing Maya's demo profile" />
+              <div class="mini-profile-overlay"><span>DEMO PROFILE</span><strong>Maya Chen · 28</strong><small>Content creator · photographer</small></div>
+            </div>
+            <div class="mini-fit"><strong>88%</strong><span>COLLAB FIT</span><small>Shared photography · Creator Week</small></div>
+            <div class="mini-actions"><b>×</b><strong>↗</strong></div>
+          </div>
+          <span class="float-note note-one">Approx. 12 mi</span>
+          <span class="float-note note-two">Open to collab</span>
+        </div>
+      </section>
+
+      <section class="demo-section demo-reveal" id="discover">
+        <div class="demo-section-copy">
+          <span class="demo-index">01 / DISCOVER</span>
+          <h2>Less guessing. More useful context.</h2>
+          <p>Browse by the things that actually shape a collaboration: creative tags, event plans, formats, availability, and approximate distance.</p>
+          <div class="demo-pills"><span>Photography</span><span>In-person shoots</span><span>Creator Week</span><span>Within 25 mi</span></div>
+        </div>
+        <div class="demo-stage stage-discover">
+          <div class="orbit-card orbit-back">AVN Expo <small>EVENT PLAN</small></div>
+          <div class="discover-card"><div class="discover-card-top"><span>OPEN TO COLLAB</span><b>1 / 5</b></div><div class="discover-avatar"><img src="assets/cumunity/second-portrait.jpg" alt="Non-explicit stock portrait representing a second demo creator" /></div><strong>Maya Chen</strong><small>Content creator · photographer</small><div class="discover-line"></div><div class="discover-meta"><span>~12 mi</span><span>THIS MONTH</span></div></div>
+          <div class="orbit-card orbit-front">Glamour / nude <small>CREATIVE TAG</small></div>
+        </div>
+      </section>
+
+      <section class="demo-section section-reverse demo-reveal" id="fit">
+        <div class="demo-section-copy">
+          <span class="demo-index">02 / COMPARE</span>
+          <h2>Show why a connection might work.</h2>
+          <p>Make the recommendation legible. The demo fit signal explains itself from shared interests, shared events, shared formats, and coarse distance.</p>
+          <div class="fit-explain"><strong>88%</strong><span>Transparent demo estimate</span><small>Not identity proof. Not a safety certification. A starting point for conversation.</small></div>
+        </div>
+        <div class="demo-stage stage-fit">
+          <div class="signal-stack"><span>Shared photography</span><span>Both planning Creator Week</span><span>Both open to in-person shoots</span><span>Nearby approximate location</span></div>
+          <div class="signal-ring"><strong>88</strong><small>FIT</small></div>
+        </div>
+      </section>
+
+      <section class="demo-section demo-reveal" id="trust">
+        <div class="demo-section-copy">
+          <span class="demo-index">03 / TRUST</span>
+          <h2>Trust signals with honest edges.</h2>
+          <p>Profile links remain links. Challenges show possible account control. Testing status is self-reported. Reports and blocks are visible controls—not hidden policy.</p>
+          <div class="trust-checks"><span>18+ gate</span><span>Report / block</span><span>Privacy by default</span><span>Rookie Guide</span></div>
+        </div>
+        <div class="demo-stage stage-trust">
+          <div class="trust-ticket"><span>CREATOR SAFETY</span><strong>Keep your space good.</strong><p>Choose what feels right for this profile.</p><div><b>!</b> Report this profile</div><div><b>×</b> Block this profile</div></div>
+          <span class="trust-badge">NOT VERIFIED</span>
+        </div>
+      </section>
+
+      <section class="demo-section section-reverse demo-reveal" id="terms">
+        <div class="demo-section-copy">
+          <span class="demo-index">04 / BOOK BETTER</span>
+          <h2>Put the project terms on the table.</h2>
+          <p>Compensation, travel, expenses, format, and availability give collaborators a professional starting point before a booking conversation begins.</p>
+          <div class="terms-mini"><span>Negotiable</span><span>Travel covered</span><span>This month</span></div>
+        </div>
+        <div class="demo-stage stage-terms">
+          <div class="brief-sheet"><span>PROJECT BRIEF</span><h3>Color studio day</h3><p>Small, thoughtful crew. Written scope and release required.</p><div class="brief-row"><b>FORMAT</b><span>In-person shoots</span></div><div class="brief-row"><b>TERMS</b><span>Negotiable · Travel covered</span></div><div class="brief-row"><b>BOUNDARY</b><span>No third-party recording</span></div></div>
+        </div>
+      </section>
+
+      <section class="demo-finale demo-reveal">
+        <span class="panel-label">The goal</span>
+        <h2>Make collaboration feel more possible—and more professional.</h2>
+        <p class="lede">This early concept points toward authenticated accounts, secure messaging, moderation, scheduling, agreements, and official integrations only where they are supported.</p>
+        <div class="roadmap-line"><span>DISCOVERY</span><i></i><span>TRUST LAYER</span><i></i><span>PRODUCTION TOOLS</span><i></i><span>OFFICIAL REACH</span></div>
+        <a class="demo-cta" href="/">Explore the working MVP <span aria-hidden="true">→</span></a>
+      </section>
+    </main>
+    <footer class="demo-footer" aria-label="Portfolio credit">
+      <span class="demo-footer-credit">captured by dkd</span>
+      <a class="demo-footer-cta" href="mailto:kev@madladllc.studio?subject=CumUnity%20soft%20teaser">For more information, contact us <span aria-hidden="true">↗</span></a>
+      <span class="demo-footer-brand"><img src="assets/madlad-logo.png" alt="MadLAD LLC logo" /> MadLAD LLC</span>
+    </footer>
+    <script>
+      const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const revealItems = document.querySelectorAll(".demo-reveal");
+      if (reducedMotion) {
+        revealItems.forEach((item) => item.classList.add("is-visible"));
+      } else {
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("is-visible");
+              observer.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.18 });
+        revealItems.forEach((item) => observer.observe(item));
+        const updateScrollMotion = () => {
+          document.querySelectorAll(".demo-stage").forEach((stage) => {
+            const rect = stage.getBoundingClientRect();
+            const progress = Math.max(-1, Math.min(1, (window.innerHeight * .55 - rect.top) / (window.innerHeight * .8)));
+            stage.style.setProperty("--scroll-shift", `${progress * 24}px`);
+          });
+        };
+        updateScrollMotion();
+        window.addEventListener("scroll", updateScrollMotion, { passive: true });
+      }
+    </script>
+  </body>
+</html>
