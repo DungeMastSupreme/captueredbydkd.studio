@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="The full capturedbydkd.studio photography archive." />
+    <meta name="theme-color" content="#11110f" />
+    <title>Archive — capturedbydkd.studio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;1,500;1,600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="archive-page">
+    <header class="site-header archive-header">
+      <a class="wordmark" href="index.html" aria-label="capturedbydkd.studio home"><span>captured</span><em>by</em><span>dkd</span><b>.studio</b></a>
+      <a class="archive-back" href="index.html">← Back to edit</a>
+    </header>
+    <main>
+      <section class="archive-intro">
+        <p class="eyebrow"><span class="eyebrow-dot"></span> 02 — Full archive</p>
+        <h1>Every frame<br /><i>has a pulse.</i></h1>
+        <p>Boudoir, intimate portraits, details, and experiments from the current capturedbydkd.studio image library.</p>
+      </section>
+      <section class="archive-controls" aria-label="Archive filters">
+        <button class="filter-button is-active" data-filter="all">All frames <span id="archive-count"></span></button>
+        <button class="filter-button" data-filter="portrait">Portraits</button>
+        <button class="filter-button" data-filter="wide">Wide frames</button>
+        <button class="filter-button" data-filter="vertical">Vertical frames</button>
+        <button class="selection-clear" type="button" id="clear-selection">Clear selection</button>
+      </section>
+      <div class="selection-bar" aria-live="polite"><strong id="selection-count">0 assigned</strong><span>Use “Assign to…” on any image to choose the exact homepage slot it should replace.</span><div id="slot-assignments"></div></div>
+      <section id="archive-grid" class="archive-grid" aria-live="polite"></section>
+    </main>
+    <footer class="site-footer"><a class="wordmark" href="index.html"><span>captured</span><em>by</em><span>dkd</span><b>.studio</b></a><span class="archive-footer-note">Current archive · update as the work grows</span><a class="back-top" href="#">Back to top ↑</a></footer>
+    <script src="archive-data.js"></script>
+    <script src="archive.js"></script>
+  </body>
+</html>
